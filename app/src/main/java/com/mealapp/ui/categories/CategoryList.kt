@@ -15,12 +15,12 @@ fun CategoryList(
     onCategoryClick: (categoryName: String) -> Unit
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 160.dp),
-        contentPadding = PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        columns = GridCells.Adaptive(minSize = 150.dp),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        items(categories) { category ->
+        items(categories, key = { it.id }) { category ->
             CategoryItem(
                 category = category,
                 onClick = { onCategoryClick(category.name) }
