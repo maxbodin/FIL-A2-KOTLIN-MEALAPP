@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,16 +32,21 @@ import com.mealapp.ui.vm.ViewModelFactory
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MealsScreen(
+    categoryName: String,
     onMealClick: (mealId: String) -> Unit,
     onNavigateBack: () -> Unit,
     viewModel: MealsViewModel = viewModel(factory = ViewModelFactory())
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    LaunchedEffect(categoryName) {
+        viewModel.loadMeals(categoryName)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(state.categoryName) },
+                title = { Text(categoryName) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")

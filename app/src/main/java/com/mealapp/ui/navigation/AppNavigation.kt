@@ -31,8 +31,11 @@ fun AppNavigation() {
             arguments = listOf(navArgument(Routes.ARG_CATEGORY_NAME) {
                 type = NavType.StringType
             })
-        ) { _ ->
+        ) { backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString(Routes.ARG_CATEGORY_NAME) ?: ""
+
             MealsScreen(
+                categoryName = categoryName,
                 onMealClick = { mealId ->
                     navController.navigate(Routes.mealDetailsRoute(mealId))
                 },
@@ -47,8 +50,11 @@ fun AppNavigation() {
             arguments = listOf(navArgument(Routes.ARG_MEAL_ID) {
                 type = NavType.StringType
             })
-        ) { _ ->
+        ) { backStackEntry ->
+            val mealId = backStackEntry.arguments?.getString(Routes.ARG_MEAL_ID) ?: ""
+
             MealDetailScreen(
+                mealId = mealId,
                 onNavigateBack = {
                     navController.popBackStack()
                 }
