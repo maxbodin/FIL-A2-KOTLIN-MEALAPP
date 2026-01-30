@@ -41,7 +41,8 @@ fun CategoriesScreen(
 
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center) {
+                contentAlignment = Alignment.Center
+            ) {
                 if (state.isLoading) {
                     CircularProgressIndicator()
                 }
