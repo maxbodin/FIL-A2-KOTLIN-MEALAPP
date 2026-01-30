@@ -1,5 +1,7 @@
 package com.mealapp.ui.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,7 +21,14 @@ fun AppNavigation() {
         startDestination = Routes.CATEGORIES_LIST
     ) {
 
-        composable(route = Routes.CATEGORIES_LIST) {
+        composable(
+            route = Routes.CATEGORIES_LIST,
+            enterTransition = {
+                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
+            },
+            exitTransition = {
+                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
+            }) {
             CategoriesScreen(
                 onCategoryClick = { categoryName ->
                     navController.navigate(Routes.mealsListRoute(categoryName))
@@ -30,7 +39,13 @@ fun AppNavigation() {
             route = Routes.MEALS_LIST,
             arguments = listOf(navArgument(Routes.ARG_CATEGORY_NAME) {
                 type = NavType.StringType
-            })
+            }),
+            enterTransition = {
+                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
+            },
+            exitTransition = {
+                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
+            }
         ) { backStackEntry ->
             val categoryName = backStackEntry.arguments?.getString(Routes.ARG_CATEGORY_NAME) ?: ""
 
@@ -49,7 +64,13 @@ fun AppNavigation() {
             route = Routes.MEAL_DETAILS,
             arguments = listOf(navArgument(Routes.ARG_MEAL_ID) {
                 type = NavType.StringType
-            })
+            }),
+            enterTransition = {
+                slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
+            },
+            exitTransition = {
+                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
+            }
         ) { backStackEntry ->
             val mealId = backStackEntry.arguments?.getString(Routes.ARG_MEAL_ID) ?: ""
 

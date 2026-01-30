@@ -5,13 +5,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,10 +28,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mealapp.ui.components.SearchAndSortBar
+import com.mealapp.ui.components.shimmerEffect
 import com.mealapp.ui.vm.MealsViewModel
 import com.mealapp.ui.vm.ViewModelFactory
 
@@ -79,7 +85,18 @@ fun MealsScreen(
 
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 if (state.isLoading) {
-                    CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
+                    LazyColumn {
+                        items(5) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(110.dp)
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(16.dp))
+                                    .shimmerEffect()
+                            )
+                        }
+                    }
                 }
 
                 state.error?.let {
@@ -92,11 +109,15 @@ fun MealsScreen(
 
                 state.meals.let { meals ->
                     if (meals.isEmpty() && !state.isLoading) {
-                        Text(
-                            text = "No recipes found.",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
-                        )
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = null,
+                                modifier = Modifier.size(100.dp),
+                                tint = MaterialTheme.colorScheme.outline
+                            )
+                            Text("No recipes found for '${state.searchQuery}'")
+                        }
                     } else {
                         LazyColumn(
                             contentPadding = PaddingValues(
