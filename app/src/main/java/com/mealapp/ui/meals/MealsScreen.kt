@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -109,15 +107,7 @@ fun MealsScreen(
 
                 state.meals.let { meals ->
                     if (meals.isEmpty() && !state.isLoading) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Icon(
-                                imageVector = Icons.Default.Close,
-                                contentDescription = null,
-                                modifier = Modifier.size(100.dp),
-                                tint = MaterialTheme.colorScheme.outline
-                            )
-                            Text("No recipes found for '${state.searchQuery}'")
-                        }
+                        Text("No recipes found for '${state.searchQuery}'")
                     } else {
                         LazyColumn(
                             contentPadding = PaddingValues(
