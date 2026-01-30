@@ -25,18 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.mealapp.data.network.ApiClient
-import com.mealapp.data.repository.MealRepositoryImpl
-import com.mealapp.ui.vm.MealsViewModelFactory
+import com.mealapp.ui.vm.MealsViewModel
+import com.mealapp.ui.vm.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MealsScreen(
     onMealClick: (mealId: String) -> Unit,
     onNavigateBack: () -> Unit,
-    viewModel: MealsViewModel = viewModel(
-        factory = MealsViewModelFactory(MealRepositoryImpl(ApiClient.create()))
-    )
+    viewModel: MealsViewModel = viewModel(factory = ViewModelFactory())
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

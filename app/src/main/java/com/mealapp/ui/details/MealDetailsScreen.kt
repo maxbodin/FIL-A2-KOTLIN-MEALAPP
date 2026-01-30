@@ -19,18 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.mealapp.data.network.ApiClient
-import com.mealapp.data.repository.MealRepositoryImpl
 import com.mealapp.ui.vm.MealDetailsViewModel
-import com.mealapp.ui.vm.MealDetailsViewModelFactory
+import com.mealapp.ui.vm.ViewModelFactory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MealDetailScreen(
     onNavigateBack: () -> Unit,
-    viewModel: MealDetailsViewModel = viewModel(
-        factory = MealDetailsViewModelFactory(MealRepositoryImpl(ApiClient.create()))
-    )
+    viewModel: MealDetailsViewModel = viewModel(factory = ViewModelFactory())
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flow
 
 
 class MealRepositoryImpl(
-    private val apiService: TheMealDbApiService = ApiClient.create()
+    private val apiService: TheMealDbApiService = ApiClient.mealDbApi
 ) : MealRepository {
 
     override fun getCategories(): Flow<Result<List<Category>>> = flow {

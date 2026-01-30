@@ -6,8 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
     private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
 
-    fun create(): TheMealDbApiService {
-        return Retrofit.Builder()
+    val mealDbApi: TheMealDbApiService by lazy {
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

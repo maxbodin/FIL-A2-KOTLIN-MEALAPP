@@ -21,10 +21,8 @@ class CategoriesViewModel(
     }
 
     private fun fetchCategories() {
-        // Set loading to true
         _state.value = _state.value.copy(isLoading = true)
 
-        // Collect the Flow from the repository
         repository.getCategories().onEach { result ->
             result.onSuccess { categoryList ->
                 _state.value = _state.value.copy(
