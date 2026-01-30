@@ -7,14 +7,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mealapp.ui.components.SearchAndSortBar
@@ -25,9 +28,17 @@ import com.mealapp.ui.vm.ViewModelFactory
 @Composable
 fun CategoriesScreen(
     onCategoryClick: (String) -> Unit,
+    onRandomMealFound: (String) -> Unit,
     viewModel: CategoriesViewModel = viewModel(factory = ViewModelFactory())
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(state.randomMealId) {
+        state.randomMealId?.let { id ->
+            onRandomMealFound(id)
+            viewModel.onNavigationConsumed()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -43,6 +54,20 @@ fun CategoriesScreen(
                     containerColor = MaterialTheme.colorScheme.background
                 )
             )
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { viewModel.onRandomMealClick() },
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                shape = androidx.compose.foundation.shape.CircleShape
+            ) {
+                Text(
+                    text = "Surprise Me!",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(horizontal = 12.dp)
+                )
+            }
         },
         containerColor = MaterialTheme.colorScheme.background
     ) { paddingValues ->

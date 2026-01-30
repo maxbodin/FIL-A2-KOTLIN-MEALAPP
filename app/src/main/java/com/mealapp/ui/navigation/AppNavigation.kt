@@ -32,9 +32,13 @@ fun AppNavigation() {
             CategoriesScreen(
                 onCategoryClick = { categoryName ->
                     navController.navigate(Routes.mealsListRoute(categoryName))
+                },
+                onRandomMealFound = { mealId ->
+                    navController.navigate(Routes.mealDetailsRoute(mealId))
                 }
             )
         }
+
         composable(
             route = Routes.MEALS_LIST,
             arguments = listOf(navArgument(Routes.ARG_CATEGORY_NAME) {

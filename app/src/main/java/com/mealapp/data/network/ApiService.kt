@@ -6,7 +6,6 @@ import com.mealapp.data.network.dto.response.MealsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
 interface TheMealDbApiService {
     @GET("categories.php")
     suspend fun getCategories(): CategoriesResponse
@@ -16,4 +15,7 @@ interface TheMealDbApiService {
 
     @GET("lookup.php")
     suspend fun getMealDetails(@Query("i") id: String): MealDetailsResponse
+
+    @GET("random.php")
+    suspend fun getRandomMeal(): MealDetailsResponse
 }

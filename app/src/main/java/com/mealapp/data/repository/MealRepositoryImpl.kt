@@ -39,4 +39,12 @@ class MealRepositoryImpl(
     }.catch { throwable ->
         emit(Result.failure(throwable))
     }
+
+    override fun getRandomMeal(): Flow<Result<MealDetails?>> = flow {
+        val response = apiService.getRandomMeal().meals.firstOrNull()
+
+        emit(Result.success(response?.toDomain()))
+    }.catch { throwable ->
+        emit(Result.failure(throwable))
+    }
 }

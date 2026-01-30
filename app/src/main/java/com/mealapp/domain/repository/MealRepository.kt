@@ -9,4 +9,5 @@ interface MealRepository {
     fun getCategories(): Flow<Result<List<Category>>>
     fun getMealsByCategory(category: String): Flow<Result<List<Meal>>>
     fun getMealDetails(id: String): Flow<Result<MealDetails?>>
+    fun getRandomMeal(): Flow<Result<MealDetails?>>
 }

@@ -53,4 +53,27 @@ class CategoriesViewModel(private val repository: MealRepository) : ViewModel() 
         }
         _state.value = _state.value.copy(isLoading = false, categories = sorted)
     }
+
+    fun onRandomMealClick() {
+        _state.value = _state.value.copy(isLoading = true)
+
+        repository.getRandomMeal().onEach { result ->
+            result.onSuccess { mealDetails ->
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    randomMealId = mealDetails?.id
+                )
+            }
+            result.onFailure {
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    error = "Failed to fetch random meal"
+                )
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    fun onNavigationConsumed() {
+        _state.value = _state.value.copy(randomMealId = null)
+    }
 }

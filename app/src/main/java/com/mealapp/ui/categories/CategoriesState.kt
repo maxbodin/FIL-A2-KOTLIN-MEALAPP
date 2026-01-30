@@ -7,5 +7,6 @@ data class CategoriesState(
     val categories: List<Category> = emptyList(),
     val error: String? = null,
     val searchQuery: String = "",
-    val isAscending: Boolean = true
+    val isAscending: Boolean = true,
+    val randomMealId: String? = null
 )
