@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL = "https://www.themealdb.com/"
+    private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
 
     fun create(): TheMealDbApiService {
         return Retrofit.Builder()
