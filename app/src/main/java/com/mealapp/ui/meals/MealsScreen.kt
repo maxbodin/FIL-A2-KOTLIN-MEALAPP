@@ -1,7 +1,7 @@
 package com.mealapp.ui.meals
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.mealapp.ui.components.SearchAndSortBar
 import com.mealapp.ui.vm.MealsViewModel
 import com.mealapp.ui.vm.ViewModelFactory
 
@@ -33,15 +34,13 @@ import com.mealapp.ui.vm.ViewModelFactory
 @Composable
 fun MealsScreen(
     categoryName: String,
-    onMealClick: (mealId: String) -> Unit,
+    onMealClick: (String) -> Unit,
     onNavigateBack: () -> Unit,
     viewModel: MealsViewModel = viewModel(factory = ViewModelFactory())
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(categoryName) {
-        viewModel.loadMeals(categoryName)
-    }
+    LaunchedEffect(categoryName) { viewModel.loadMeals(categoryName) }
 
     Scaffold(
         topBar = {
@@ -49,29 +48,35 @@ fun MealsScreen(
                 title = { Text(categoryName) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
                     }
                 }
             )
         }
     ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            contentAlignment = Alignment.Center
-        ) {
-            if (state.isLoading) {
-                CircularProgressIndicator()
-            }
-            state.error?.let {
-                Text(text = it, color = MaterialTheme.colorScheme.error)
-            }
-            state.meals?.let { meals ->
-                LazyColumn(contentPadding = PaddingValues(16.dp)) {
-                    items(meals) { meal ->
-                        MealItem(meal = meal, onClick = { onMealClick(meal.id) })
-                        Spacer(modifier = Modifier.height(16.dp))
+        Column(modifier = Modifier.padding(paddingValues)) {
+            SearchAndSortBar(
+                query = state.searchQuery,
+                onQueryChange = viewModel::onSearchQueryChanged,
+                isAscending = state.isAscending,
+                onSortToggle = viewModel::toggleSortOrder
+            )
+
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                if (state.isLoading) {
+                    CircularProgressIndicator()
+                }
+
+                state.error?.let {
+                    Text(text = it, color = MaterialTheme.colorScheme.error)
+                }
+
+                state.meals.let { meals ->
+                    LazyColumn {
+                        items(meals) { meal ->
+                            MealItem(meal = meal, onClick = { onMealClick(meal.id) })
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
                     }
                 }
             }
