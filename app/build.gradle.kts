@@ -55,13 +55,13 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-    implementation("com.google.dagger:hilt-android:2.49")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
 
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation(libs.coil.compose)
 
-    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
+    implementation(libs.core)
 }
