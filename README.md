@@ -20,6 +20,6 @@ data flow.
 * **Image/Video:** **Coil** for async image rendering and **Android-YouTube-Player** for
   WebView-based video integration.
 
-| Categories Screen                                       | Meals Screen                                  | Details Screen                                    |
-|---------------------------------------------------------|-----------------------------------------------|---------------------------------------------------|
-| ![Screenshot_categories.png](Screenshot_categories.png) | ![Screenshot_meals.png](Screenshot_meals.png) | ![Screenshot_details.png](Screenshot_details.png) |
+| Categories Screen                                                                                                         | Meals Screen                                                                                                    | Details Screen                                                                                                      |
+|---------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| ![IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_categories.webp](screenshots/IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_categories.webp) | ![IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_meals.webp](screenshots/IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_meals.webp) | ![IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_details.webp](screenshots/IMT-FIL-A2-KOTLIN-MEALAPP-screenshot_details.webp) |
